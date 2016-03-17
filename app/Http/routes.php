@@ -34,4 +34,15 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
+
+    Route::get('/info', 'HomeController@printInfo');
+});
+
+
+
+Route::group(['middleware' => 'web'], function () {
+    
+    Route::group(['middleware' => 'admin'], function() {
+        Route::get('/dashboard', 'LoginController@dashboard');
+    });
 });
