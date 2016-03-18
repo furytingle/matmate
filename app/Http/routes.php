@@ -41,8 +41,10 @@ Route::group(['middleware' => 'web'], function () {
 
 
 Route::group(['middleware' => 'web'], function () {
-    
+
     Route::group(['middleware' => 'admin'], function() {
         Route::get('/dashboard', 'LoginController@dashboard');
+
+        Route::resource('part', 'PartController');
     });
 });

@@ -15,7 +15,7 @@ class PartController extends Controller
      */
     public function index()
     {
-        //
+        return "COMING SOON";
     }
 
     /**
@@ -25,7 +25,7 @@ class PartController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.cruds.part');
     }
 
     /**
@@ -36,7 +36,16 @@ class PartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'partname' => 'required',
+            'description' => 'required'
+        ]);
+
+        $args = $request->except(['_token', 'partname']);
+        $args['name'] = $request['partname'];
+
+        dd($args);
+        //Part::create($args);
     }
 
     /**
