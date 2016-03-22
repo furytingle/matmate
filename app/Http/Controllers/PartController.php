@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Part;
 
 class PartController extends Controller
 {
@@ -15,7 +16,9 @@ class PartController extends Controller
      */
     public function index()
     {
-        return "COMING SOON";
+        $parts = Part::all();
+
+        return view('admin.part.index', ['parts' => $parts]);
     }
 
     /**
@@ -25,7 +28,7 @@ class PartController extends Controller
      */
     public function create()
     {
-        return view('admin.cruds.part');
+        return view('admin.part.create');
     }
 
     /**
@@ -37,15 +40,16 @@ class PartController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'partname' => 'required',
+            'name' => 'required',
             'description' => 'required'
         ]);
 
-        $args = $request->except(['_token', 'partname']);
-        $args['name'] = $request['partname'];
+        $data = $request->all();
+        Part::create($data);
 
-        dd($args);
-        //Part::create($args);
+        $request->session()->flash('flash_message', 'Part added');
+
+        return redirect()->back();
     }
 
     /**
@@ -56,7 +60,9 @@ class PartController extends Controller
      */
     public function show($id)
     {
-        //
+        $part = Part::findOrFail($id);
+
+        return view('admin.part.show', ['part' => $part]);
     }
 
     /**
@@ -67,7 +73,9 @@ class PartController extends Controller
      */
     public function edit($id)
     {
-        //
+        $part = Part::findOrFail($id);
+
+        return view('admin.part.edit', ['part' => $part]);
     }
 
     /**
@@ -79,7 +87,19 @@ class PartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $part = Part::findOrFail($id);
+
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $data = $request->all();
+        $part->fill($data)->save();
+
+        $request->session()->flash('flash_message', 'Part updated');
+
+        return redirect()->back();
     }
 
     /**
@@ -88,8 +108,14 @@ class PartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $part = Part::findOrFail($id);
+
+        $part->delete();
+
+        $request->session()->flash('flash_message', 'Part deleted');
+
+        return redirect()->back();
     }
 }

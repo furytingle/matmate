@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/parts', 'AngularController@getParts');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -37,8 +39,6 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/info', 'HomeController@printInfo');
 });
-
-
 
 Route::group(['middleware' => 'web'], function () {
 

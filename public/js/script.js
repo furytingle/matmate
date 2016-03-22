@@ -9,4 +9,10 @@ $(document).ready(function(){
         $("#start,#finish").append('<option>' + i + ':30' + '</option>');
     }
 
+    /*$.get('/parts', function(data){
+
+        $.each(data, function(key, val){
+            //$("#parts").append('<div>' + val.id + ' ' + val.name + ' ' + val.description + ' ' + val.start + ' ' + val.finish + '</div>');
+        });
+    }); */
 });
