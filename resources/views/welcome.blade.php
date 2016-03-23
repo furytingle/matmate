@@ -13,5 +13,8 @@
             </div>
         </div>
     </div>
+    <div class="container" id="canvas">
+        <canvas id="matCanvas" width="500" height="500"></canvas>
+    </div>
 </div>
 @endsection
